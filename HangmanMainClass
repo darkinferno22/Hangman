@@ -1,12 +1,39 @@
-import java.util.Scanner;
-
 public class HangmanMainClass {
     
     public static void main(String[] args) {
+        int correct = 0;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter a motherfucking string");
-        String answer = scan.nextLine();
-        System.out.println(answer + " was your string");
+        System.out.println("Enter the word to guess:");
+        String answer;
+        answer = scan.nextLine();
+        System.out.println(answer + " was your word");
+        String[] answerArray = answer.split("");
+        guessLoop:
+        while(true){
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HangmanMainClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Which letter do you guess?");
+            String guess;
+            guess = scan.nextLine();
+            if(splitString(guess).length != 1){
+                System.out.println("One letter please!");
+                continue guessLoop;
+            }
+            for(String value: answerArray){
+                if(guess == value){
+                    System.out.println(value);
+                    correct++;
+                }
+            };
+        }
+        
+        
+    }
+    public static String[] splitString(String s){
+        return s.split("");
     }
     
 }
