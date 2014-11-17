@@ -1,4 +1,4 @@
 Hangman
 =======
 
-This is hangman, bitch
+This is hangman, bitch.
