@@ -45,6 +45,9 @@ public class HangmanMainClass {
             correctLetters.add(let);
             answerList.add("_");
         }
+        for(Object value: answerList){
+            System.out.println(value);
+        }
         System.out.println("Length of answer: " + answerArray.length);
         System.out.println("You have 7 chances!");
         guessLoop: //Used for restarting if guess is not one letter
@@ -73,7 +76,7 @@ public class HangmanMainClass {
             for(int i = 0; i < answerArray.length; i++){
                 if(answerArray[i].equals(guess)){
                     correct++;//Checks number of letters in word
-                    answerList.add(i, guess);
+                    answerList.set(i, guess);
                 }
                 else{
                     lettersRemaining++;
