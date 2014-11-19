@@ -1,14 +1,24 @@
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class HangmanMainClass {
     
     public static void main(String[] args) {
         int correct = 0;
-        Scanner scan = new Scanner(System.in);
+        //Array to keep track of which letters you have guessed
+        String[] lettersGuessed = new String[26/*Number of letters in the alphabet*/];
+        for(int i = 0; i < lettersGuessed.length; i++){
+        	lettersGuessed[i] = "";
+        }
+		Scanner scan = new Scanner(System.in);
+        //ADD: choice for random word or own input///////////////////
         System.out.println("Enter the word to guess:");
         String answer;
         answer = scan.nextLine();
-        System.out.println(answer + " was your word");
+        //Split word into individual letters
         String[] answerArray = answer.split("");
-        guessLoop:
+        guessLoop: //Used for restarting if guess is not one letter
         while(true){
             try {
                 Thread.sleep(2000);
@@ -17,21 +27,67 @@ public class HangmanMainClass {
             }
             System.out.println("Which letter do you guess?");
             String guess;
-            guess = scan.nextLine();
-            if(splitString(guess).length != 1){
+            guess = new String(scan.nextLine());
+            //Checks if you have already guessed the letter
+            for(String let: lettersGuessed){
+            	if(guess.equals(let)){
+            		System.out.println("You have already guessed that letter! Try again faggot.");
+            		continue guessLoop;
+            	}
+            };
+            //sets lettersGuessed to an empty array, avoids NullPointerException
+            for(int i = 0; i < lettersGuessed.length; i++){
+            	if(lettersGuessed[i].equals("")){
+            		lettersGuessed[i] = guess;
+            		break;
+            	}
+            }
+            //Checks if guess is exactly one letter, if not forces you to try again
+            if(splitString(guess).length != 2){
                 System.out.println("One letter please!");
                 continue guessLoop;
             }
+            //Checks each letter in the answer to see if it matches your guess
             for(String value: answerArray){
-                if(guess == value){
-                    System.out.println(value);
-                    correct++;
+                if(value.equals(guess)){
+                    System.out.print(value);
+                    correct++;//Checks number of letters in word
+                }
+                //BUG: First value of answerArray is empty
+                else if(value.equals("")){
+                	System.out.print("");
+                }
+                //For nonmatching letters
+                else{
+                	System.out.print("_");
                 }
             };
+            System.out.print("\n");
+            if(correct == 0){
+                System.out.println("There are none of your letter in the word.");
+            }
+            else if(correct == 1){
+                System.out.println("There is 1 " + guess + " in the word.");
+            }
+            else{
+                System.out.println("There are " + correct + " " + guess + "'s in the word.");
+            }
+            correct = 0;
+            System.out.print("Letters guessed so far: ");
+            for(String value: lettersGuessed){
+            	System.out.print(value + " ");
+            	try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+            }
+            System.out.println();
         }
         
         
     }
+    //Method for turning any string into an array of its individual characters
     public static String[] splitString(String s){
         return s.split("");
     }
