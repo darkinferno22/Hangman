@@ -5,7 +5,10 @@ import java.util.logging.Logger;
 public class HangmanMainClass {
     
     public static void main(String[] args) {
+    	beginning:;
+    	int lettersRemaining = 0;
         int correct = 0;
+        String answer;
         //Array to keep track of which letters you have guessed
         String[] lettersGuessed = new String[26/*Number of letters in the alphabet*/];
         for(int i = 0; i < lettersGuessed.length; i++){
@@ -13,11 +16,12 @@ public class HangmanMainClass {
         }
 		Scanner scan = new Scanner(System.in);
         //ADD: choice for random word or own input///////////////////
+		System.out.println("Would you like to: \n[1]Enter your own word\n[2]Have a random word selected for you");
         System.out.println("Enter the word to guess:");
-        String answer;
         answer = scan.nextLine();
         //Split word into individual letters
         String[] answerArray = answer.split("");
+        System.out.println(answerArray[1]);
         guessLoop: //Used for restarting if guess is not one letter
         while(true){
             try {
@@ -60,9 +64,16 @@ public class HangmanMainClass {
                 //For nonmatching letters
                 else{
                 	System.out.print("_");
+                	lettersRemaining++;
                 }
             };
             System.out.print("\n");
+            try {
+				Thread.sleep(500);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             if(correct == 0){
                 System.out.println("There are none of your letter in the word.");
             }
@@ -72,8 +83,14 @@ public class HangmanMainClass {
             else{
                 System.out.println("There are " + correct + " " + guess + "'s in the word.");
             }
+            if(lettersRemaining == 0){
+            	System.out.println("You win!\n[1] Play again\n[2] Quit");
+            }
+            else{
+            	System.out.println("Letters remaining: " + lettersRemaining);
+            }
             correct = 0;
-            System.out.print("Letters guessed so far: ");
+            lettersRemaining = 0;
             for(String value: lettersGuessed){
             	System.out.print(value + " ");
             	try {
