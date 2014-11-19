@@ -43,6 +43,7 @@ public class HangmanMainClass {
         String[] answerArray = splitString(answer);
         for(String let: answerArray){
             correctLetters.add(let);
+            answerList.add("_");
         }
         System.out.println("Length of answer: " + answerArray.length);
         System.out.println("You have 7 chances!");
