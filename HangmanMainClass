@@ -11,14 +11,19 @@ public class HangmanMainClass {
         Random rand = new Random();
     	int lettersRemaining = 0;
         int correct = 0;
-        int choice = -1;      //ArrayList lets us modify the array much easier than a nrmal array would using methods like add(Element E) and remove(int index, or remove(Element E)
+        int choice = -1;      //ArrayList lets us modify the array much easier than a normal array would using methods like add(Element E) and remove(int index, or remove(Element E)
         //ArrayList of random words
+        String[] words = {"banana", "grapes", "grape", "atmosphere", "stratosphere", "github", "anus", "camp", 
+        "bananahammock", "syndrome", "incredible", "inedible", "california", "wyoming", "cat", "dog", "lovely", "eatery", "restaurant", "uncalled", "asshole", "faggot", "jared", "yunus", "nick", "computer"}; 
         ArrayList answerList = new ArrayList();
         ArrayList correctLetters = new ArrayList();
         ArrayList incorrectLetters = new ArrayList();
         ArrayList randomWords = new ArrayList();
         randomWords.add("rhino");
-        randomWords.add("retarded");        
+        randomWords.add("retarded");
+        for(String word: words){
+        	randomWords.add(word);
+        }
         String answer;
         //Array to keep track of which letters you have guessed
         String[] lettersGuessed = new String[26/*Number of letters in the alphabet*/];
@@ -44,6 +49,7 @@ public class HangmanMainClass {
         for(String let: answerArray){
             correctLetters.add(let);
             answerList.add("_");
+            lettersRemaining++;
         }
         for(Object value: answerList){
             System.out.println(value);
@@ -78,9 +84,6 @@ public class HangmanMainClass {
                     correct++;//Checks number of letters in word
                     answerList.set(i, guess);
                 }
-                else{
-                    lettersRemaining++;
-                }
             };
             for(Object let: answerList){
                 System.out.print(let);
@@ -108,6 +111,7 @@ public class HangmanMainClass {
             else{
                 System.out.println("There are " + correct + " " + guess + "'s in the word.");
             }
+            lettersRemaining -= correct;
             if(lettersRemaining == 0){
             	System.out.println("You win!\n[1] Play again\n[2] Quit");
             }
@@ -140,7 +144,7 @@ public class HangmanMainClass {
                 System.out.println("Chances Left: " + (7 - incorrectLetters.size()));
             }
             else{
-                System.out.println("Ye are a faggot loser and you have lost. Faggot.");
+                System.out.println("Ye be a loser and ye have lost. Faggot.");
                 System.exit(-1);
             }
         }    
