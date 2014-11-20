@@ -71,7 +71,6 @@ public class HangmanMainClass {
         }    
     }
     public static void guessLetter(){
-        while(true){            
             String guess = JOptionPane.showInputDialog("Which letter do you guess?");
             //Checks if you have already guessed the letter
             for(String let: lettersGuessed){
@@ -141,7 +140,6 @@ public class HangmanMainClass {
                 JOptionPane.showMessageDialog(null, "Ye be a loser and ye have lost. Faggot. The answer was: " + answer);
                 playAgain();
             }
-        }
     }
     public static void guessString(){
     	String finalGuess = JOptionPane.showInputDialog(null, "What do you think the word is? You lose if you guess wrong. LOWERCASE ONLY");
