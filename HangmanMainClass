@@ -9,7 +9,14 @@ import java.util.logging.Logger;
 public class HangmanMainClass {
     
     public static void main(String[] args) {
-        Random rand = new Random();
+    	runGame();
+    }
+    //Method for turning any string into an array of its individual characters
+    public static String[] splitString(String s){
+        return s.split("");
+    }
+    public static void runGame(){
+    	Random rand = new Random();
     	int lettersRemaining = 0;
         int correct = 0;
         int choice = -1;      //ArrayList lets us modify the array much easier than a normal array would using methods like add(Element E) and remove(int index, or remove(Element E)
@@ -120,6 +127,13 @@ public class HangmanMainClass {
             lettersRemaining -= correct;
             if(lettersRemaining == 0){
             	System.out.println("You win!\n[1] Play again\n[2] Quit");
+            	int winChoice = parseInt(scan.nextLine());
+            	if(winChoice == 1){
+            		runGame();
+            	}
+            	else{
+            		System.exit(-1);
+            	}
             }
             else{
             	System.out.println("Letters remaining: " + lettersRemaining);
@@ -150,12 +164,15 @@ public class HangmanMainClass {
             }
             else{
                 System.out.println("Ye be a loser and ye have lost. Faggot.");
-                System.exit(-1);
+                System.out.println("[1] Play Again\n[2] Quit");
+                int winChoice = parseInt(scan.nextLine());
+            	if(winChoice == 1){
+            		runGame();
+            	}
+            	else{
+            		System.exit(-1);
+            	}
             }
-        }    
+        }
     }
-    //Method for turning any string into an array of its individual characters
-    public static String[] splitString(String s){
-        return s.split("");
-    }   
 }
